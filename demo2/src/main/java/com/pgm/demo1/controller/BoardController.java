@@ -8,14 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pgm.demo1.domain.BoardVO;
+import com.pgm.demo1.domain.JpaBoard;
 import com.pgm.demo1.service.BoardService;
 
 @Controller
-//@RequestMapping("/board/*")
 public class BoardController {
-//	@val("${servlet.multipart.location}")
-//	@Value("${multipart.location}")
 	String filePath;
 
 	@Autowired
@@ -23,7 +20,7 @@ public class BoardController {
 
 	@GetMapping("list")
 	public String list(Model model) {
-		model.addAttribute("list", boardService.getList());
+		model.addAttribute("list", boardService.list());
 		return "list";
 	}
 
@@ -39,35 +36,21 @@ public class BoardController {
 	}
 
 	@GetMapping("updateForm/{bno}")
-//	public String updateForm(@RequestParam("bno") int bno, @RequestParam("title") String title,
-//			@RequestParam("writer") String writer, @RequestParam("content") String content, Model model) {
-//	public String updateForm(@ModelAttribute("board") BoardVO boardVO, Model model) {
 	public String updateForm(@PathVariable("bno") int bno, Model model) {
-//		BoardVO boardVO = new BoardVO();
-//		boardVO.setBno(bno);
-//		boardVO.setTitle(title);
-//		boardVO.setWriter(writer);
-//		boardVO.setContent(content);
-
 		model.addAttribute("board", boardService.read(bno));
 		model.addAttribute("msg", "update 페이지입니다.");
-//		model.addAttribute("bno", bno);
-//		model.addAttribute("board", boardVO);
 		return ("updateForm");
 	}
 
 	@PostMapping("insert")
-	public String insert(BoardVO vo) {
-
-		boardService.regisert(vo);
+	public String insert(JpaBoard board) {
+		boardService.regisert(board);
 		return "redirect:list";
 	}
 
 	@PostMapping("update")
-	public String update(BoardVO vo) {
-
-		System.out.println(vo);
-		boardService.update(vo);
+	public String update(JpaBoard board) {
+		boardService.update(board);
 		return "redirect:list";
 	}
 

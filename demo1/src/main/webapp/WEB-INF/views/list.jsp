@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<button type="button" onclick="location.href='/list';">목록</button>
@@ -22,7 +24,11 @@
 				<td>${board.bno }</td>
 				<td><a href="/read/${board.bno}">${board.title}</a></td>
 				<td>${board.writer}</td>
-				<td><a href="/updateForm?bno=${board.bno}">수정</a></td>
+				<%-- <td><a
+					href="/updateForm?bno=${board.bno}&title=${board.title}&writer=${board.writer}&content=${board.content}">수정</a></td> --%>
+				<%-- <td><a
+					href="/updateForm?board=${board }">수정</a></td> --%>
+				<td><a href="/updateForm/${board.bno}">수정</a></td>
 				<td><a href="/delete?bno=${board.bno}">삭제</a></td>
 			</tr>
 		</c:forEach>
